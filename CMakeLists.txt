@@ -3,7 +3,7 @@
 cmake_minimum_required (VERSION 2.8.12)
 
 
-if (NOT (EXISTS "${CMAKE_SOURCE_DIR}/CMake/config.h.in"))
+if (NOT (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/CMake/config.h.in"))
 	message (FATAL_ERROR "\nError : Need to run \"./autogen.sh cmake\" first.")
 	endif ()
 
@@ -184,9 +184,11 @@ set (libsndfile_sources
 	src/xi.c
 	)
 
-add_library (sndfile SHARED
-	${libsndfile_sources}
-	)
+if(USE_STATIC_LIBSNDFILE)
+    add_library(sndfile STATIC ${libsndfile_sources})
+else()
+    add_library(sndfile SHARED ${libsndfile_sources})
+endif()
 
 target_link_libraries (sndfile m)
 
