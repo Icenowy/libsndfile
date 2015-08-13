@@ -85,7 +85,7 @@ add_custom_target (check
 configure_file (src/sndfile.h.in src/sndfile.h)
 configure_file (CMake/config.h.in src/config.h)
 
-include_directories (src)
+include_directories (src "${CMAKE_CURRENT_BINARY_DIR}/src")
 
 set (libsndfile_sources
 	src/ALAC/ALACBitUtilities.c
